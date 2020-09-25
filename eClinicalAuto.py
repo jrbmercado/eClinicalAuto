@@ -338,6 +338,55 @@ def lockNotes():
         click()
 
 
+# Verifies medication
+def verifyMedication():
+    loopNum = prompt(text="How many times to loop?", title="", default="")
+    sleep(1) # Delay to let user let go of mouse
+    for i in range(0, int(loopNum)):
+        # Enter into the progress note of the first encounter
+        moveTo(277, 236, duration=0)
+        doubleClick()
+        sleep(2)
+        # Unlock Claim
+        sleep(.4)
+        moveTo(418, 1017, duration=0)
+        click()
+        sleep(.4)
+        moveTo(411, 979, duration=0)
+        click()
+        sleep(.4)
+        moveTo(1029, 614, duration=0)
+        click()
+        moveTo(233, 600, duration=0)
+        # Wait for human to verify medication
+        ready = alert(text="Please verify medication", title="", button="Done")
+        #ready = "Done"
+        if ready == "Done":
+            # Return to S jellybean
+            moveTo(1618, 72, duration=0)
+            click()
+            sleep(1.5)
+    # Change to Unlocked View
+    moveTo(786, 160, duration=0)
+    click()
+    moveTo(742, 233, duration=0)   
+    click()
+    # Select all notes
+    moveTo(124, 221, duration=0)
+    click()
+    # Lock
+    moveTo(615, 1019, duration=0)
+    click()
+    sleep(3.8)
+    moveTo(789, 162, duration=0)
+    click()
+    moveTo(765, 220, duration=0)
+    click()
+    moveTo(807, 192, duration=0)
+    click()
+    verifyMedication()
+    
+
 # Button to get the current mouse position for function development
 button_getMousePos = Button(frame, text="Get Current Mouse Position", command=getMousePos, height=2, width=35, padx=5, pady=5)
 button_getMousePos.grid(row=0, column=0, columnspan=2)
@@ -353,5 +402,9 @@ button_postERA.grid(row=2, column=0)
 # Button to lock notes automatically
 button_lockNotes = Button(frame, text="Lock Notes", command=lockNotes, height=2, width=35, padx=5, pady=5)
 button_lockNotes.grid(row=3, column=0)
+
+# Button to verify medication automatically
+button_lockNotes = Button(frame, text="Verify Medication", command=verifyMedication, height=2, width=35, padx=5, pady=5)
+button_lockNotes.grid(row=4, column=0)
 
 root.mainloop()
