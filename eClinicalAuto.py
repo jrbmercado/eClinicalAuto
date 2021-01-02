@@ -2,6 +2,8 @@ from pyautogui import *
 from tkinter import *
 from time import sleep
 from pyperclip import paste
+import keyboard
+import time
 
 # Create Window
 root = Tk()
@@ -11,10 +13,24 @@ root.title("eClinicalAuto")
 frame = Frame(root, height=200, width=600)
 frame.grid(row=0, column=0)
 
-# Prints the current mouse coordinates to console
+# Prints the current mouse coordinates to console after user presses q on top of desired location
 def getMousePos():
-    time.sleep(1.4)
-    print(position())
+    # Create New Window
+    root_mousePos = Toplevel(frame)
+    root_mousePos.title("Mouse Position")
+
+    # Label for the mouse position
+    label_mousePosition = Label(root_mousePos, text="Mouse Position")
+    label_mousePosition.grid(row=0, column=0)
+
+    # Entry field for user to copy desired mouse position
+    mousePositionEntry = Entry(root_mousePos)
+    mousePositionEntry.grid(row=0, column=1)
+    while keyboard.is_pressed("q") == False:
+        mousePosition= str(position())# Get the current mouse position
+        # Update mouse position entry with new history variable
+        mousePositionEntry.delete(0, END)
+        mousePositionEntry.insert(0, mousePosition)
 
 # Enters Address, Phone Number, Responsible Party, PCP, and Insurance to Patient Info
 def enterPatientInfo():
@@ -74,9 +90,9 @@ def enterPatientInfo():
     radio_Princeton.grid(row=10, column=1)
     radio_Mcclure = Radiobutton(root_enterPatientInfo, text="Mcclure", variable=radio_facilitySelect, value=3)
     radio_Mcclure.grid(row=11, column=0)
-    radio_Moraga = Radiobutton(root_enterPatientInfo, text="Moraga", variable=radio_facilitySelect, value=4)
+    radio_Moraga = Radiobutton(root_enterPatientInfo, text="Neuro", variable=radio_facilitySelect, value=4)
     radio_Moraga.grid(row=11, column=1)
-    radio_Marin = Radiobutton(root_enterPatientInfo, text="Marin", variable=radio_facilitySelect, value=5)
+    radio_Marin = Radiobutton(root_enterPatientInfo, text="Princeton", variable=radio_facilitySelect, value=5)
     radio_Marin.grid(row=12, column=0)
     radio_Legacy = Radiobutton(root_enterPatientInfo, text="Legacy", variable=radio_facilitySelect, value=6)
     radio_Legacy.grid(row=12, column=1)
@@ -147,9 +163,9 @@ def enterPatientInfo():
         elif radio_facilitySelect.get() == 3:
             facilityName.set("Mcclure")
         elif radio_facilitySelect.get() == 4:
-            facilityName.set("Moraga")
+            facilityName.set("Neuro")
         elif radio_facilitySelect.get() == 5:
-            facilityName.set("Marin")
+            facilityName.set("Princeton")
         elif radio_facilitySelect.get() == 6:
             facilityName.set("Legacy")
         elif radio_facilitySelect.get() == 7:
@@ -302,93 +318,38 @@ def enterPatientInfo():
     button_submitPatientInfo.grid(row=14, column=0, columnspan=2)
     
 
-# Attempts to post all ERA's on a given range
+# Attempts to post all ERA's until user interrupt
 def postERA():
-    loopNum = prompt(text="How many times to loop?", title="", default="")
     sleep(1) # Delay to let user let go of mouse
-    for i in range(0, int(loopNum)):
-        # Select first ERA
-        moveTo(441, 338, duration=0)
-        click()
-        # ePost
-        moveTo(659, 152, duration=0)
-        click()
-        sleep(3)
-        # Close
-        moveTo(1176, 770, duration=0)
-        click()
+    while keyboard.is_pressed("q") == False:
+            # Select first ERA
+            moveTo(441, 338, duration=0)
+            click()
+            # ePost
+            moveTo(659, 152, duration=0)
+            click()
+            sleep(3)
+            # Close
+            moveTo(1176, 770, duration=0)
+            click()
 
-# Attempts to lock all notes on a given rage of dates
+# Attempts to lock all notes until user interrupt
 def lockNotes():
-    loopNum = prompt(text="How many times to loop?", title="", default="")
     sleep(1) # Delay to let user let go of mouse
-    for i in range(0, int(loopNum)):
+    while keyboard.is_pressed("q") == False:
         # Select all
         moveTo(122, 220, duration=0)
         click()
         # Lock notes
         moveTo(600, 1022, duration=0)
         click()
-        sleep(4)
-        # OK
-        moveTo(1085, 598, duration=0)
-        click()
+        sleep(5)
         # Next Date
         moveTo(811, 195, duration=0)
         click()
 
-
-# Verifies medication
-def verifyMedication():
-    loopNum = prompt(text="How many times to loop?", title="", default="")
-    sleep(1) # Delay to let user let go of mouse
-    for i in range(0, int(loopNum)):
-        # Enter into the progress note of the first encounter
-        moveTo(277, 236, duration=0)
-        doubleClick()
-        sleep(2)
-        # Unlock Claim
-        sleep(.4)
-        moveTo(418, 1017, duration=0)
-        click()
-        sleep(.4)
-        moveTo(411, 979, duration=0)
-        click()
-        sleep(.4)
-        moveTo(1029, 614, duration=0)
-        click()
-        moveTo(233, 600, duration=0)
-        # Wait for human to verify medication
-        ready = alert(text="Please verify medication", title="", button="Done")
-        #ready = "Done"
-        if ready == "Done":
-            # Return to S jellybean
-            moveTo(1618, 72, duration=0)
-            click()
-            sleep(1.5)
-    # Change to Unlocked View
-    moveTo(786, 160, duration=0)
-    click()
-    moveTo(742, 233, duration=0)   
-    click()
-    # Select all notes
-    moveTo(124, 221, duration=0)
-    click()
-    # Lock
-    moveTo(615, 1019, duration=0)
-    click()
-    sleep(3.8)
-    moveTo(789, 162, duration=0)
-    click()
-    moveTo(765, 220, duration=0)
-    click()
-    moveTo(807, 192, duration=0)
-    click()
-    verifyMedication()
-    
-
-# Button to get the current mouse position for function development
-button_getMousePos = Button(frame, text="Get Current Mouse Position", command=getMousePos, height=2, width=35, padx=5, pady=5)
+# Button to get the current mouse position for function development, user presses q on top of desired element to get coordinates
+button_getMousePos = Button(frame, text="Q for Current Mouse Position", command=getMousePos, height=2, width=35, padx=5, pady=5)
 button_getMousePos.grid(row=0, column=0, columnspan=2)
 
 # Button to enter patient information automatically
@@ -402,9 +363,5 @@ button_postERA.grid(row=2, column=0)
 # Button to lock notes automatically
 button_lockNotes = Button(frame, text="Lock Notes", command=lockNotes, height=2, width=35, padx=5, pady=5)
 button_lockNotes.grid(row=3, column=0)
-
-# Button to verify medication automatically
-button_lockNotes = Button(frame, text="Verify Medication", command=verifyMedication, height=2, width=35, padx=5, pady=5)
-button_lockNotes.grid(row=4, column=0)
 
 root.mainloop()
