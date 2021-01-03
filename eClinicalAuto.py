@@ -42,67 +42,76 @@ def enterPatientInfo():
     # Create Labels
     label_address = Label(root_enterPatientInfo, text="Address")
     label_address.grid(row=0, column=0)
+    label_address = Label(root_enterPatientInfo, text="Address 2")
+    label_address.grid(row=1, column=0)
     label_zipcode = Label(root_enterPatientInfo, text="Zipcode")
-    label_zipcode.grid(row=1, column=0)
+    label_zipcode.grid(row=2, column=0)
     label_phone = Label(root_enterPatientInfo, text="Phone")
-    label_phone.grid(row=2, column=0)
+    label_phone.grid(row=3, column=0)
     label_primaryInsuranceName = Label(root_enterPatientInfo, text="Primary Insurance Name")
-    label_primaryInsuranceName.grid(row=3, column=0)
+    label_primaryInsuranceName.grid(row=4, column=0)
     label_primarySubscriberNum = Label(root_enterPatientInfo, text="Primary Insurance Number")
-    label_primarySubscriberNum.grid(row=4, column=0)
+    label_primarySubscriberNum.grid(row=5, column=0)
     label_secondaryInsuranceName = Label(root_enterPatientInfo, text="Secondary Insurance Name")
-    label_secondaryInsuranceName.grid(row=5, column=0)
+    label_secondaryInsuranceName.grid(row=6, column=0)
     label_secondarySubscriberNum = Label(root_enterPatientInfo, text="Secondary Insurance Number")
-    label_secondarySubscriberNum.grid(row=6, column=0)
+    label_secondarySubscriberNum.grid(row=7, column=0)
     label_ssn = Label(root_enterPatientInfo, text="SSN")
-    label_ssn.grid(row=7, column=0)
+    label_ssn.grid(row=8, column=0)
+    label_middleInit = Label(root_enterPatientInfo, text="Middle Initial")
+    label_middleInit.grid(row=9, column=0)
 
     # Create Entries
     entry_address = Entry(root_enterPatientInfo)
     entry_address.grid(row=0, column=1)
+    entry_address2 = Entry(root_enterPatientInfo)
+    entry_address2.grid(row=1, column=1)
     entry_zipcode = Entry(root_enterPatientInfo)
-    entry_zipcode.grid(row=1, column=1)
+    entry_zipcode.grid(row=2, column=1)
     entry_phone = Entry(root_enterPatientInfo)
-    entry_phone.grid(row=2, column=1)
+    entry_phone.grid(row=3, column=1)
     entry_primaryInsuranceName = Entry(root_enterPatientInfo)
-    entry_primaryInsuranceName.grid(row=3, column=1)
+    entry_primaryInsuranceName.grid(row=4, column=1)
     entry_primarySubscriberNum = Entry(root_enterPatientInfo)
-    entry_primarySubscriberNum.grid(row=4, column=1)
+    entry_primarySubscriberNum.grid(row=5, column=1)
     entry_secondaryInsuranceName = Entry(root_enterPatientInfo)
-    entry_secondaryInsuranceName.grid(row=5, column=1)
+    entry_secondaryInsuranceName.grid(row=6, column=1)
     entry_secondarySubscriberNum = Entry(root_enterPatientInfo)
-    entry_secondarySubscriberNum.grid(row=6, column=1)
+    entry_secondarySubscriberNum.grid(row=7, column=1)
     entry_ssn = Entry(root_enterPatientInfo)
-    entry_ssn.grid(row=7, column=1)
+    entry_ssn.grid(row=8, column=1)
+    entry_middleInit = Entry(root_enterPatientInfo)
+    entry_middleInit.grid(row=9, column=1)
 
     # Create Capitalize Name Check Button and Variable
     capsNameState = IntVar()
     check_capitalizeName = Checkbutton(root_enterPatientInfo, text="Caps name?", variable=capsNameState)
-    check_capitalizeName.grid(row=8, column=0, columnspan=2)
+    check_capitalizeName.grid(row=10, column=0, columnspan=2)
 
     # Create Radio Buttons
     label_facilitySelect = Label(root_enterPatientInfo, text="Default Facility")
-    label_facilitySelect.grid(row=9, column=0, columnspan=2)
+    label_facilitySelect.grid(row=11, column=0, columnspan=2)
     radio_facilitySelect =  IntVar()
     radio_Aspen = Radiobutton(root_enterPatientInfo, text="Aspen", variable=radio_facilitySelect, value=1)
-    radio_Aspen.grid(row=10, column=0)
+    radio_Aspen.grid(row=12, column=0)
     radio_Princeton = Radiobutton(root_enterPatientInfo, text="Princeton", variable=radio_facilitySelect, value=2)
-    radio_Princeton.grid(row=10, column=1)
+    radio_Princeton.grid(row=12, column=1)
     radio_Mcclure = Radiobutton(root_enterPatientInfo, text="Mcclure", variable=radio_facilitySelect, value=3)
-    radio_Mcclure.grid(row=11, column=0)
+    radio_Mcclure.grid(row=13, column=0)
     radio_Moraga = Radiobutton(root_enterPatientInfo, text="Neuro", variable=radio_facilitySelect, value=4)
-    radio_Moraga.grid(row=11, column=1)
+    radio_Moraga.grid(row=13, column=1)
     radio_Marin = Radiobutton(root_enterPatientInfo, text="Princeton", variable=radio_facilitySelect, value=5)
-    radio_Marin.grid(row=12, column=0)
+    radio_Marin.grid(row=14, column=0)
     radio_Legacy = Radiobutton(root_enterPatientInfo, text="Legacy", variable=radio_facilitySelect, value=6)
-    radio_Legacy.grid(row=12, column=1)
+    radio_Legacy.grid(row=14, column=1)
     radio_Oakland = Radiobutton(root_enterPatientInfo, text="Oakland", variable=radio_facilitySelect, value=7)
-    radio_Oakland.grid(row=13, column=0)
+    radio_Oakland.grid(row=15, column=0)
     radio_Other = Radiobutton(root_enterPatientInfo, text="Other", variable=radio_facilitySelect, value=8)
-    radio_Other.grid(row=13, column=1)
+    radio_Other.grid(row=15, column=1)
 
     # Create Variables 
     address = StringVar()
+    address2 = StringVar()
     zipcode = StringVar()
     phone = StringVar()
     primaryInsuranceName = StringVar()
@@ -110,6 +119,7 @@ def enterPatientInfo():
     secondaryInsuranceName = StringVar()
     secondarySubscriberNum = StringVar()
     ssn = StringVar()
+    middleInit = StringVar()
     facilityName = StringVar()
 
 
@@ -120,6 +130,11 @@ def enterPatientInfo():
             address.set("2512 Telegraph Ave")
         else:
             address.set(entry_address.get())
+        # Address 2
+        if entry_address2.get() == "":
+            address.set("Ste 350")
+        else:
+            address2.set(entry_address2.get())
         # Zipcode
         if entry_zipcode.get() == "":
             zipcode.set("94704")
@@ -155,6 +170,11 @@ def enterPatientInfo():
             ssn.set("")
         else:
             ssn.set(entry_ssn.get())
+        # Middle Initial
+        if entry_middleInit.get() == "":
+            middleInit.set("")
+        else:
+            middleInit.set(entry_middleInit.get())
         # Facility
         if radio_facilitySelect.get() == 1:
             facilityName.set("Aspen")
@@ -205,10 +225,20 @@ def enterPatientInfo():
             firstName = str(paste()).upper()
             write(firstName)
 
+        # Enter Middle Initial
+        moveTo(929, 294, duration=0)
+        click()
+        write(middleInit.get().title())
+
         # Enter address info
         moveTo(813, 333, duration=0)
         click()
         write(address.get().title())
+
+        # Enter address 2 info
+        moveTo(734, 360, duration=0)
+        click()
+        write(address2.get().title())
 
         # Enter zip info
         moveTo(824, 408, duration=0)
@@ -315,7 +345,7 @@ def enterPatientInfo():
 
     # Create Submit Button
     button_submitPatientInfo = Button(root_enterPatientInfo, text="Submit", padx=5, pady=5, command=beginAutoPatientInfo)
-    button_submitPatientInfo.grid(row=14, column=0, columnspan=2)
+    button_submitPatientInfo.grid(row=16, column=0, columnspan=2)
     
 
 # Attempts to post all ERA's until user interrupt
